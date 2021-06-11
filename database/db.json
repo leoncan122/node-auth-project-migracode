@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "name": "Bart",
+        "email": "leoncan@gmail.com",
+        "password": "$2b$10$VRtppu/x25uRmgrx1za9r.v7ulauhh6HB6NcIYjNVBbpLm30aqhyO"
+    },
+    {
+        "id": 2,
+        "name": "Pepe",
+        "email": "pepe@gmail.com",
+        "password": "$2b$10$vezLtVMzQCq5cniR3W2w6eXcLzp3ebo0DQuiusQWBgMx1G8Eznvt."
+    }
+]
