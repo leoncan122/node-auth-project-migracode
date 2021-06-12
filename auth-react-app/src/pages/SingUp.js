@@ -1,3 +1,4 @@
+import './styles/signStyles.css'
 import {useState} from 'react';
 import SubmitButton from '../components/SubmitButton'
 
@@ -27,8 +28,9 @@ function  SignUp () {
         }
     };
     return (
-        <>
-            <form>
+        <div className="mainForm">
+            <h1>Sign up</h1>
+            <form >
                 <input 
                     id="name"
                     type="name"
@@ -51,7 +53,7 @@ function  SignUp () {
             <SubmitButton handleForm={handleSubmit}/>
             <p>Already have an account? <a>Log in</a></p>
             
-        </>
+        </div>
     )
 };
 export default SignUp;

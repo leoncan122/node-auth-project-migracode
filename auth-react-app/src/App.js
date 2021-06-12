@@ -9,8 +9,7 @@ function App() {
   return (
     <div className="App">
       <SignIn />
-      <SignUp />
-      <Home />
+      
     </div>
   );
 }
