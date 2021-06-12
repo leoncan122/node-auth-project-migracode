@@ -3,13 +3,13 @@ import {useState} from 'react';
 import SubmitButton from '../components/SubmitButton'
 
 
-function  SignIn () {
+function  SignIn (props) {
+    const {loged, setLoged} = props
     const [user, setUser] = useState({
         email: "",
         password: ""
     })
-    const [isInvalid, setIsInvalid] = useState(null)
-
+    const [isInvalid, setIsInvalid] = useState(false)
 
     const handleChange = (e) => {
         setUser({
@@ -22,9 +22,18 @@ function  SignIn () {
 
         setIsInvalid(Object.values(user).some( v => !v.length))
 
-        if (isInvalid) {
-            alert("Welcome!")
-        }
+        if (isInvalid)
+        console.log(user)
+        fetch('http://localhost:4000/user/sign-in', {
+            method: 'post',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(user)
+        })
+        .then(res => res.json())
+        .then(data => {
+            setLoged(data.isAuthenticated)
+        })
+        
     };
     return (
         <div className="mainForm">

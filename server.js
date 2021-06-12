@@ -10,6 +10,15 @@ const app = express();
 // parse requests of content-type - application/json
 app.use(express.json());
 
+app.use((req, res, next) => { 
+  console.log(`REQUEST RECEIVED!`); 
+  console.log(` URL: ${req.path}`); 
+  console.log(` PARAMS: ${JSON.stringify(req.params)}`); 
+  console.log(` BODY: ${JSON.stringify(req.body, null, 2)}`); 
+  next(); 
+});
+
+
 const corsOptions = {
   origin: "http://localhost:3000"
 };

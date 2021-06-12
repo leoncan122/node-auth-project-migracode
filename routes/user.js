@@ -1,6 +1,7 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const fs = require('fs');
+const { v4: uuidv4 } = require('uuid');
 const generateJWT = require("../utils/generateJWT");
 const authenticate = require('../middleware/authenticate')
 
@@ -23,7 +24,7 @@ router.post('/sign-up', async(req, res) => {
         const encryptedPassword = await bcrypt.hash(password, salt)
 
         const newUser = {
-            id : Math.max(usersDb.map( u => u.id)) +1,
+            id : uuidv4(),
             name : name,
             email : email,
             password : encryptedPassword
