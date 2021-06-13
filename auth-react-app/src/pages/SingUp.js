@@ -9,7 +9,7 @@ function  SignUp () {
         email: "",
         password: ""
     })
-    const [isInvalid, setIsInvalid] = useState(null)
+    const [isInvalid, setIsInvalid] = useState(true)
 
 
     const handleChange = (e) => {
@@ -21,10 +21,19 @@ function  SignUp () {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        await setIsInvalid(Object.values(newUser).some( v => !v.length))
+        setIsInvalid(Object.values(newUser).some( v => !v.length))
 
         if (!isInvalid) {
-            alert("user created")
+            fetch('http://localhost:4000/user/sign-up',{
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(newUser) 
+            }
+            )
+            .then( res => res.json())
+            .then( data => {
+                console.log(data)
+            })
         }
     };
     return (

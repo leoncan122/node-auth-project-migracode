@@ -2,14 +2,17 @@ import './styles/signStyles.css'
 import {useState} from 'react';
 import SubmitButton from '../components/SubmitButton'
 
+//context
+import DataContext from '../DataContext'
 
 function  SignIn (props) {
+
     const {loged, setLoged} = props
     const [user, setUser] = useState({
         email: "",
         password: ""
     })
-    const [isInvalid, setIsInvalid] = useState(false)
+    const [isInvalid, setIsInvalid] = useState(true)
 
     const handleChange = (e) => {
         setUser({
@@ -19,12 +22,11 @@ function  SignIn (props) {
     };
     const handleSubmit = async (e) => {
         e.preventDefault()
-
+        
         setIsInvalid(Object.values(user).some( v => !v.length))
 
-        if (isInvalid)
-        console.log(user)
-        fetch('http://localhost:4000/user/sign-in', {
+        if (!isInvalid) {
+            fetch('http://localhost:4000/user/sign-in', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(user)
@@ -33,7 +35,7 @@ function  SignIn (props) {
         .then(data => {
             setLoged(data.isAuthenticated)
         })
-        
+        };
     };
     return (
         <div className="mainForm">
