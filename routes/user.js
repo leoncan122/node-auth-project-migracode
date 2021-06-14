@@ -50,7 +50,7 @@ router.post('/sign-in', async (req, res) => {
     const { email, password } = req.body;
     
     try {
-        const user = await usersDb.filter( user => user.email === email)
+        const user = usersDb.filter( user => user.email === email)
 
         if (user.length === 0) {
             res.status(401).json({error: "Invalid credential", isAuthenticated: false})

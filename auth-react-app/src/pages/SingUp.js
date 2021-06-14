@@ -1,6 +1,8 @@
 import './styles/signStyles.css'
 import {useState} from 'react';
-import SubmitButton from '../components/SubmitButton'
+
+import Link from '../components/Link';
+import SubmitButton from '../components/SubmitButton';
 
 
 function  SignUp () {
@@ -9,7 +11,6 @@ function  SignUp () {
         email: "",
         password: ""
     })
-    const [isInvalid, setIsInvalid] = useState(true)
 
 
     const handleChange = (e) => {
@@ -21,10 +22,10 @@ function  SignUp () {
     const handleSubmit = async (e) => {
         e.preventDefault()
 
-        setIsInvalid(Object.values(newUser).some( v => !v.length))
+        let isInvalid = Object.values(newUser).some( v => !v.length)
 
         if (!isInvalid) {
-            fetch('http://localhost:4000/user/sign-up',{
+            await fetch('http://localhost:4000/user/sign-up',{
                 method: 'post',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(newUser) 
@@ -32,7 +33,11 @@ function  SignUp () {
             )
             .then( res => res.json())
             .then( data => {
-                console.log(data)
+               alert('welcome')
+               
+               if (data.isAuthenticated === 'true') {
+
+               }
             })
         }
     };
@@ -44,23 +49,28 @@ function  SignUp () {
                     id="name"
                     type="name"
                     placeholder="Name"
+                    value={newUser.name}
                     onChange={handleChange}>
                 </input>
                 <input 
                     id="email"
                     type="email"
                     placeholder="E-mail"
+                    value={newUser.email}
                     onChange={handleChange}>
                 </input>
                 <input 
                     id="password"
                     type="password"
                     placeholder="password"
+                    value={newUser.password}
                     onChange={handleChange}>
                 </input>
             </form>
             <SubmitButton handleForm={handleSubmit}/>
-            <p>Already have an account? <a>Log in</a></p>
+            <p>Already have an account?
+                <Link path='/sign-in' text='Login'/>
+            </p>
             
         </div>
     )

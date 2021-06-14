@@ -14,7 +14,6 @@ function App() {
   const [loged, setLoged] = useState(false)
   
   return (
-    
       <div className="App">
         <Switch>
           {!loged ?
@@ -24,7 +23,10 @@ function App() {
             <Route >
               <Home />
             </Route>
-          } 
+          }
+          <Route path='/sign-up'>
+            <SignUp /> 
+          </Route>
         </Switch>
       </div>
     
