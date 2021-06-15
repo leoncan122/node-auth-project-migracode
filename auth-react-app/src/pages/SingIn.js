@@ -1,21 +1,20 @@
 import './styles/signStyles.css'
-import {useState} from 'react';
+import {useContext, useState} from 'react';
 
 import Link from '../components/Link'
 import SubmitButton from '../components/SubmitButton'
 
 //context
-import DataContext from '../DataContext'
+import { UserContext } from '../context/UserContext'
 
-function  SignIn (props) {
+function  SignIn () {
 
-    const {loged, setLoged} = props
+    const context = useContext(UserContext)
     const [user, setUser] = useState({
         email: "",
         password: ""
     })
-    //const [isInvalid, setIsInvalid] = useState(true)
-
+    
     
     const handleChange = (e) => {
         setUser({
@@ -38,7 +37,8 @@ function  SignIn (props) {
         })
         .then(res => res.json())
         .then(data => {
-            setLoged(data.isAuthenticated)
+            context.setLoged(data.isAuthenticated)
+            
         })
         }
     };
