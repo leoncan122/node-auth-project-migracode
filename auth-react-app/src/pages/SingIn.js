@@ -9,7 +9,7 @@ import { UserContext } from '../context/UserContext'
 
 function  SignIn () {
 
-    const context = useContext(UserContext)
+    const {setLoged} = useContext(UserContext)
     const [user, setUser] = useState({
         email: "",
         password: ""
@@ -37,7 +37,7 @@ function  SignIn () {
         })
         .then(res => res.json())
         .then(data => {
-            context.setLoged(data.isAuthenticated)
+            setLoged(data.isAuthenticated)
             
         })
         }

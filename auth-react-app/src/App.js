@@ -13,11 +13,9 @@ import { useUser, UserProvider, UserContext} from './context/UserContext'
 
 function App() {
   
-  const {loged, setLoged} = useState(false)
-  const context = useContext(UserContext)
+  const {loged, setLoged}= useContext(UserContext)
 
   return (
-    <UserContext.Provider value={loged, setLoged}>
       <div className="App">
         <Switch>
           {!loged ?
@@ -33,7 +31,6 @@ function App() {
           </Route>
         </Switch>
       </div>
-    </UserContext.Provider>
   );
 }
  export default App;
