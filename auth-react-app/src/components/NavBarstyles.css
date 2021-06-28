@@ -1,0 +1,21 @@
+.nav {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    
+    width: 100%;
+    height: 10%;
+    background-color: rgba(0, 0, 0, 0.397);
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+button {
+    max-height: 40px;
+}
+.more:active {
+    width: 30%;
+    height: 100%;
+}

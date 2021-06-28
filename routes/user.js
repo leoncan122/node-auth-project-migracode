@@ -1,11 +1,13 @@
 const express = require('express');
 const bcrypt = require('bcrypt');
 const fs = require('fs');
+const localStorage = require("local-storage")
 const { v4: uuidv4 } = require('uuid');
 const generateJWT = require("../utils/generateJWT");
 const authenticate = require('../middleware/authenticate')
 
-const usersDb = require('../database/db.json')
+const usersDb = require('../database/db.json');
+
 
 const router = express.Router()
 
@@ -61,11 +63,9 @@ router.post('/sign-in', async (req, res) => {
         if(!isValidPassword) {
             res.status(401).json({error: "Invalid credential", isAuthenticated: false})
         }
-
         const jwtToken = generateJWT(user[0].id)
 
         return res.status(201).json({ jwtToken, isAuthenticated: true})
-
     }
     catch (error) {
         console.error(error.message)
@@ -84,4 +84,24 @@ router.post("/auth", authenticate, (req, res) => {
       res.status(500).send({error: error.message, isAuthenticated: false});
     }
   });
+
+router.get('/name', authenticate,  async (req, res) => {
+
+    const {id} = req.user
+    
+    try {
+        const user = usersDb.filter( user => user.id === id)
+        
+        if (user.length === 0) {
+            res.status(500).json({error: "Invalid credential", isAuthenticated: false})
+        }
+
+        return res.status(200).json({ user: user[0] })
+
+    } catch (error){
+        console.error(error.message);
+        res.status(500).json({error: error.message, isAuthenticated: false})
+    }
+
+})
 module.exports = router;

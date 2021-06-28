@@ -38,7 +38,7 @@ function  SignIn () {
         .then(res => res.json())
         .then(data => {
             setLoged(data.isAuthenticated)
-            
+            localStorage.setItem('token', JSON.stringify(data.jwtToken))
         })
         }
     };
@@ -61,8 +61,9 @@ function  SignIn () {
                     value={user.password}
                     onChange={handleChange}>
                 </input>
+                <SubmitButton handleForm={handleSubmit}/>
             </form>
-            <SubmitButton handleForm={handleSubmit}/>
+            
             <p>Don't have an account?
                 <Link path='/sign-up' text=' Sign up'/>
             </p>

@@ -3,8 +3,8 @@ require("dotenv").config()
 
 function authenticate (req, res, next ) {
 
-    //get token fron header
-    let token = req.header("authorization")
+    //get token from header
+    let token = req.header("Authorization")
 
     if (!token) {
         res.status(500).json({ message: "Authorization denied", isAuthenticated: false})
@@ -16,7 +16,7 @@ function authenticate (req, res, next ) {
     try {
         //this will return the user ID or the payload we specicated in our generateJWT.js
         const verify = jwt.verify(token, process.env.jwtSecret)
-
+        
         req.user = verify.user
 
         next();

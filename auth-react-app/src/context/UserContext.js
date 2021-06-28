@@ -1,4 +1,4 @@
-import React, {useState, useContext, createContext, Children} from  'react';
+import React, {useState, createContext} from  'react';
 
 export const UserContext = createContext(); 
 
@@ -10,3 +10,15 @@ export function UserProvider ({children}) {
         </UserContext.Provider > 
     )
 };
+
+export const MenuContext = createContext();
+
+export function MenuProvider ({children}) {
+    const [menuActive, setMenuActive] = useState(false)
+
+    return (
+        <MenuContext.Provider value={{menuActive, setMenuActive}}>
+            {children}
+        </MenuContext.Provider>
+    )
+}

@@ -1,36 +1,45 @@
-import './App.css';
-
 import React, {useContext, useState} from 'react';
 
-import SignIn from './pages/SingIn'
-import Home from './pages/Home'
+//style
+import './App.css';
 
-import {Switch, Route} from 'react-router-dom'
+//components
+import SignIn from './pages/SingIn';
 import SignUp from './pages/SingUp';
+import Home from './pages/Home';
+
+import { BrowserRouter } from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom'
 
 //context
-import { useUser, UserProvider, UserContext} from './context/UserContext'
+import {UserContext} from './context/UserContext'
+import {MenuProvider} from './context/UserContext'
 
 function App() {
   
   const {loged, setLoged}= useContext(UserContext)
-
+  
   return (
+    <BrowserRouter>
       <div className="App">
-        <Switch>
-          {!loged ?
-            <Route exact path='/sign-in'>
-              <SignIn />
-            </Route> : 
-            <Route >
-              <Home />
+        <MenuProvider>
+          <Switch>
+            {!loged ?
+              <Route path='/sign-in'>
+                <SignIn />
+              </Route> : 
+              <Route >
+                <Home path='/home'/>
+              </Route>
+            }
+            <Route path='/sign-up'>
+              <SignUp /> 
             </Route>
-          }
-          <Route path='/sign-up'>
-            <SignUp /> 
-          </Route>
-        </Switch>
+          </Switch>
+        </MenuProvider>    
       </div>
+    </BrowserRouter> 
+    
   );
 }
  export default App;
