@@ -1,7 +1,7 @@
 //styles
 import './styles/homeStyles.css';
 
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import NavBar from '../components/NavBar';
 import Menu from '../components/Menu'
 
@@ -13,7 +13,7 @@ function Home  ()  {
     const token = localStorage.getItem('token')
 
     useEffect( () => {
-
+        
         fetch('http://localhost:4000/user/name',{
             method: 'get',
             headers: {
@@ -22,9 +22,10 @@ function Home  ()  {
         })
         .then(res => res.json())
         .then( data => {
+            console.log(data)
             localStorage.setItem('userProfile', JSON.stringify(data.user))
         })        
-        console.log('dentro')
+        
     }, [])
     
     const user =  JSON.parse(localStorage.getItem('userProfile'))

@@ -24,7 +24,7 @@ function  SignIn () {
     };
 
 
-    const handleSubmit = async (e) => {
+    const handleSubmit =  async (e) => {
         e.preventDefault()
         
         let isInvalid = Object.values(user).some( v => !v.length)
@@ -38,7 +38,7 @@ function  SignIn () {
         .then(res => res.json())
         .then(data => {
             setLoged(data.isAuthenticated)
-            localStorage.setItem('token', JSON.stringify(data.jwtToken))
+            localStorage.setItem('token', data.jwtToken)
         })
         }
     };
