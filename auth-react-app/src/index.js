@@ -4,13 +4,16 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {UserProvider} from './context/UserContext'
+import {MenuProvider} from './context/UserContext'
 
 ReactDOM.render(
   <React.StrictMode>
     <UserProvider >
+      <MenuProvider>
       
         <App />
 
+      </MenuProvider>
     </UserProvider>  
   </React.StrictMode>,
   document.getElementById('root')

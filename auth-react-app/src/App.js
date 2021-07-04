@@ -13,30 +13,32 @@ import {Switch, Route} from 'react-router-dom'
 
 //context
 import {UserContext} from './context/UserContext'
-import {MenuProvider} from './context/UserContext'
+
 
 function App() {
   
-  const {loged, setLoged}= useContext(UserContext)
+  const {loged}= useContext(UserContext)
   
   return (
     <BrowserRouter>
       <div className="App">
-        <MenuProvider>
-          <Switch>
-            {!loged ?
-              <Route path='/sign-in'>
-                <SignIn />
-              </Route> : 
-              <Route >
-                <Home path='/home'/>
-              </Route>
-            }
-            <Route path='/sign-up'>
-              <SignUp /> 
+      
+        <Switch>
+          {!loged ?
+            <Route path='/sign-in'>
+              <SignIn />
+            </Route> : 
+              
+            <Route>
+                <Home exact path='/home'/>
             </Route>
-          </Switch>
-        </MenuProvider>    
+                
+          }
+          <Route path='/sign-up'>
+            <SignUp /> 
+          </Route>
+        </Switch>
+      
       </div>
     </BrowserRouter> 
     

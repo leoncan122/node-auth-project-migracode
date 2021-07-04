@@ -16,7 +16,7 @@ function authenticate (req, res, next ) {
     try {
         //this will return the user ID or the payload we specicated in our generateJWT.js
         const verify = jwt.verify(token, process.env.jwtSecret)
-        
+        console.log(verify)
         req.user = verify.user
 
         next();

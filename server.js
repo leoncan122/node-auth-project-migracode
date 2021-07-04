@@ -1,11 +1,18 @@
 const express = require("express");
 const cors = require("cors");
+const bodyParser = require('body-parser');
 const user = require('./routes/user')
+
 
 
 // initializing express application
 const app = express();
 
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
 
 // parse requests of content-type - application/json
 app.use(express.json());
@@ -35,7 +42,7 @@ app.use('/user', user)
 
 
 // set port, listen for requests
-const PORT = process.env.PORT || 4000;
+const PORT = 4000;
 const server = app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${server.address().port}.`);
 });

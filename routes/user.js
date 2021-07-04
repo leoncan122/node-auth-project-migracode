@@ -5,6 +5,7 @@ const localStorage = require("local-storage")
 const { v4: uuidv4 } = require('uuid');
 const generateJWT = require("../utils/generateJWT");
 const authenticate = require('../middleware/authenticate')
+const path = require('path')
 
 const usersDb = require('../database/db.json');
 
@@ -34,7 +35,7 @@ router.post('/sign-up', async(req, res) => {
 
         usersDb.push(newUser)
 
-        fs.writeFileSync('/home/leoncan122/node/node-auth-project-migracode/database/db.json',
+        fs.writeFileSync(path.join(__dirname, '../database/db.json'),
          JSON.stringify(usersDb));
 
         const jwtToken = generateJWT(newUser.id)

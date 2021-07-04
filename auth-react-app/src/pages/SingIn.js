@@ -26,20 +26,22 @@ function  SignIn () {
 
     const handleSubmit =  async (e) => {
         e.preventDefault()
-        
+
+        localStorage.clear()
+
         let isInvalid = Object.values(user).some( v => !v.length)
 
         if (!isInvalid) {
-            await fetch('http://localhost:4000/user/sign-in', {
+            let promise = await fetch('http://localhost:4000/user/sign-in', {
             method: 'post',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(user)
-        })
-        .then(res => res.json())
-        .then(data => {
+            })
+            let data = await promise.json()
+            
             setLoged(data.isAuthenticated)
             localStorage.setItem('token', data.jwtToken)
-        })
+            
         }
     };
     
