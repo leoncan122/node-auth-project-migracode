@@ -7,9 +7,11 @@ import './App.css';
 import SignIn from './pages/SingIn';
 import SignUp from './pages/SingUp';
 import Home from './pages/Home';
+import Messages from './components/Messages';
 
-import { BrowserRouter } from 'react-router-dom';
-import {Switch, Route} from 'react-router-dom'
+
+
+import {Switch, Route, Redirect} from 'react-router-dom'
 
 //context
 import {UserContext} from './context/UserContext'
@@ -18,29 +20,30 @@ import {UserContext} from './context/UserContext'
 function App() {
   
   const {loged}= useContext(UserContext)
+
+  function PrivateRoute ({ children, ...rest }) {
+    return (
+      <Route {...rest} render={() => {
+        return loged === true
+          ? children
+          : <Redirect to='/sign-in' />
+      }} />
+    )
+  }
   
   return (
-    <BrowserRouter>
+    
       <div className="App">
-      
-        <Switch>
-          {!loged ?
-            <Route path='/sign-in'>
-              <SignIn />
-            </Route> : 
-              
-            <Route>
-                <Home exact path='/home'/>
-            </Route>
-                
-          }
-          <Route path='/sign-up'>
-            <SignUp /> 
-          </Route>
-        </Switch>
-      
+            {    loged && 
+             <Redirect to='/home' />
+            }
+          <Route path='/sign-in' component={SignIn}/>
+          <PrivateRoute path='/home' component={Home}>
+            <Home />
+          </PrivateRoute>
+          <Route path='/sign-up' component={SignUp}/>
+        
       </div>
-    </BrowserRouter> 
     
   );
 }

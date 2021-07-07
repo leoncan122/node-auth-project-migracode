@@ -6,6 +6,15 @@ const { v4: uuidv4 } = require('uuid');
 const generateJWT = require("../utils/generateJWT");
 const authenticate = require('../middleware/authenticate')
 const path = require('path')
+const { Pool } = require('pg')
+
+const pool = new Pool({
+  host: 'localhost',
+  user: 'postgres',
+  database: 'node-auth',
+  password: 'newPassword',
+  port: 5432
+})
 
 const usersDb = require('../database/db.json');
 
@@ -104,5 +113,25 @@ router.get('/name', authenticate,  async (req, res) => {
         res.status(500).json({error: error.message, isAuthenticated: false})
     }
 
+})
+router.get('/messages',authenticate, async (req, res) => {
+    const {id} = req.user
+
+    try {
+        pool.connect( (err,client, release) => {
+            if (err) {
+                return res.status(500).send('Error acquiring client')
+            }
+            client.query('SELECT * FROM messages WHERE id $1', [id], (err, result) => {
+                release;
+                if (result.rowCount === 0) {
+                    return res.status(404).send('There are not messages already')
+                }
+                res.status(200).send(result.rows)
+            })
+        })
+    } catch {
+
+    }
 })
 module.exports = router;
