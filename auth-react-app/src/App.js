@@ -38,7 +38,7 @@ function App() {
              <Redirect to='/home' />
             }
           <Route path='/sign-in' component={SignIn}/>
-          <PrivateRoute path='/home' component={Home}>
+          <PrivateRoute path='/home' >
             <Home />
           </PrivateRoute>
           <Route path='/sign-up' component={SignUp}/>

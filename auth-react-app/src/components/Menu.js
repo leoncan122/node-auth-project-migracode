@@ -1,13 +1,31 @@
-import React from 'react';
+import React, {useContext} from 'react';
+import {MenuContext} from '../context/UserContext';
+
 
 function Menu () {
+    const {loaded, setLoaded} = useContext(MenuContext)
+        
+    const Component = Object.values(loaded)[0]
+
+    // function withComponent (Component) {
+    //     return () => 
+    //         class extends React.Component {
+                
+    //             render (){
+    //                 return (
+    //                     <div>
+    //                         <Component />
+    //                     </div>
+    //                 )
+    //             }
+    //         }
+        
+    // }
+
     return (
-        <ul>
-            <li>profile</li>
-            <li>configuration</li>
-            <li>friends</li>
-            <li>messages</li>
-        </ul>
+        <>
+            <Component />
+        </>
     )
 };
 

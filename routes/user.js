@@ -114,24 +114,24 @@ router.get('/name', authenticate,  async (req, res) => {
     }
 
 })
-router.get('/messages',authenticate, async (req, res) => {
-    const {id} = req.user
+router.get('/:id/messages',  async (req, res) => {
+    const {id} = req.params
 
     try {
         pool.connect( (err,client, release) => {
             if (err) {
-                return res.status(500).send('Error acquiring client')
+                return res.send('Error acquiring client')
             }
-            client.query('SELECT * FROM messages WHERE id $1', [id], (err, result) => {
+            client.query('SELECT * FROM messages WHERE to_user_id = $1', [id], (err, result) => {
                 release;
-                if (result.rowCount === 0) {
-                    return res.status(404).send('There are not messages already')
+                if (result.rowCount > 0) {
+                    res.status(200).send(result.rows)
+                } else {
+                    res.status(404).send('There are not messages already')
                 }
-                res.status(200).send(result.rows)
+
             })
         })
-    } catch {
-
-    }
+    } catch {}
 })
 module.exports = router;

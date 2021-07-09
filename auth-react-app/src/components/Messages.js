@@ -1,25 +1,34 @@
-import React, { useEffect } from 'react';
+import React, { useState,useEffect } from 'react';
+
 
 function Messages () {
-    
+    const [messages, setMessages] = useState(null)
+
     let token = localStorage.getItem("token")
+    let profile = localStorage.getItem("userProfile")
+    
+
     useEffect ( () => {
-        fetch('http://localhost:4000/user/messages', {
-            method: 'get',
-            headers: {
-                'Authorization': `bearer ${token}`
-            }
-        })
+        const x = JSON.parse(profile)
+        
+        const fetchedData = fetch(`http://localhost:4000/user/2/messages`)
         .then(res => res.json())
         .then(data => {
-            console.log(data)
+            setMessages(data)
         })
-    }, [token])
-    
+        
+    },[profile])
+
     return (
         <div>
             <h3>Messages</h3>
-            <p></p>
+            { messages &&
+                messages.map( msg => (
+                    <div>
+                        {msg.send_date}
+                    </div>
+                ))
+            }
         </div>
     )
 };

@@ -25,7 +25,7 @@ function Home  ()  {
         })
         .then(res => res.json())
         .then( data => {
-            console.log(data)
+            
             if (data.user){
                 localStorage.setItem('userProfile', JSON.stringify(data.user))
             }

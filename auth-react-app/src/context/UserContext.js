@@ -15,9 +15,10 @@ export const MenuContext = createContext();
 
 export function MenuProvider ({children}) {
     const [menuActive, setMenuActive] = useState(false)
+    const [loaded, setLoaded] = useState(null)
 
     return (
-        <MenuContext.Provider value={{menuActive, setMenuActive}}>
+        <MenuContext.Provider value={{menuActive, setMenuActive, loaded, setLoaded}}>
             {children}
         </MenuContext.Provider>
     )
