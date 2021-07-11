@@ -15,9 +15,10 @@ function Messages () {
         .then(res => res.json())
         .then(data => {
             setMessages(data)
+            console.log(messages)
         })
-        
-    },[profile])
+    
+    },[token])
 
     return (
         <div>

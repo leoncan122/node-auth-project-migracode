@@ -134,4 +134,25 @@ router.get('/:id/messages',  async (req, res) => {
         })
     } catch {}
 })
+router.get('/profile', authenticate,  async (req, res) => {
+    const {id} = req.params
+
+    try {
+        pool.connect( (err,client, release) => {
+            if (err) {
+                return res.send('Error acquiring client')
+            }
+            client.query('SELECT * FROM users WHERE id = 1', (err, result) => {
+                release;
+
+                if (result.rowCount > 0) {
+                    res.status(200).json(result.rows[0])
+                } else {
+                    res.status(404).send('There are not data profile')
+                }
+
+            })
+        })
+    } catch {}
+})
 module.exports = router;
